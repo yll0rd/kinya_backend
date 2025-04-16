@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -60,6 +61,7 @@ public class AuthService {
                         input.password()
                 )
         );
+        SecurityContextHolder.getContext().setAuthentication(authUser);
         System.out.println(authUser);
 
         return tokenService.generateAccessToken((User) authUser.getPrincipal());

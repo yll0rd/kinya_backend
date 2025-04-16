@@ -32,7 +32,7 @@ public class AuthConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/user").hasRole(String.valueOf(UserRole.ADMIN))
-                        .requestMatchers(HttpMethod.GET, "/api/v1/lesson").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/lesson").hasRole(String.valueOf(UserRole.ADMIN))
 //                        .requestMatchers(HttpMethod.POST, "/api/v1/books").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
