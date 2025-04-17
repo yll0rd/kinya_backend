@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 @Service
@@ -43,6 +44,9 @@ public class TokenProvider {
     }
 
     private Instant genAccessExpirationDate() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("+02:00"));
+        return LocalDateTime.now()
+                .plusHours(24)
+                .atZone(ZoneId.systemDefault())
+                .toInstant();
     }
 }
