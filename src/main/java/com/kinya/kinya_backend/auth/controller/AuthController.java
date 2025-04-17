@@ -2,17 +2,12 @@ package com.kinya.kinya_backend.auth.controller;
 
 import com.kinya.kinya_backend.auth.dtos.JwtDto;
 import com.kinya.kinya_backend.auth.dtos.SignInDto;
-import com.kinya.kinya_backend.user.User;
 import jakarta.validation.Valid;
-import com.kinya.kinya_backend.auth.TokenProvider;
 import com.kinya.kinya_backend.auth.dtos.SignUpDto;
 import com.kinya.kinya_backend.auth.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

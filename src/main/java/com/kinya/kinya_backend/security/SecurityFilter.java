@@ -1,4 +1,4 @@
-package com.kinya.kinya_backend.auth;
+package com.kinya.kinya_backend.security;
 
 import com.kinya.kinya_backend.user.UserRepository;
 import jakarta.servlet.FilterChain;

@@ -1,4 +1,4 @@
-package com.kinya.kinya_backend.auth.service;
+package com.kinya.kinya_backend.security;
 
 import com.kinya.kinya_backend.user.User;
 import com.kinya.kinya_backend.user.UserRepository;

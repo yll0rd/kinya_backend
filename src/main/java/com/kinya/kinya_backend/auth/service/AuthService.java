@@ -1,21 +1,16 @@
 package com.kinya.kinya_backend.auth.service;
 
-import com.kinya.kinya_backend.auth.TokenProvider;
+import com.kinya.kinya_backend.security.TokenProvider;
 import com.kinya.kinya_backend.auth.dtos.SignInDto;
 import com.kinya.kinya_backend.auth.dtos.SignUpDto;
-//import com.kinya.kinya_backend.config.AuthConfig;
 import com.kinya.kinya_backend.user.User;
 import com.kinya.kinya_backend.user.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

@@ -1,5 +1,8 @@
-package com.kinya.kinya_backend.user;
+package com.kinya.kinya_backend.config;
 
+import com.kinya.kinya_backend.user.User;
+import com.kinya.kinya_backend.user.UserRepository;
+import com.kinya.kinya_backend.user.UserRole;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

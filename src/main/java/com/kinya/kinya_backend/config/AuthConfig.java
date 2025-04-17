@@ -1,6 +1,6 @@
 package com.kinya.kinya_backend.config;
 
-import com.kinya.kinya_backend.auth.SecurityFilter;
+import com.kinya.kinya_backend.security.SecurityFilter;
 import com.kinya.kinya_backend.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

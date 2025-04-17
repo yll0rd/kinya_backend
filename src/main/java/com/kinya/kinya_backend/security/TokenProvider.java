@@ -1,4 +1,4 @@
-package com.kinya.kinya_backend.auth;
+package com.kinya.kinya_backend.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
