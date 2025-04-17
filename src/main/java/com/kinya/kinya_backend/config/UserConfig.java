@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.List;
+//import java.util.List;
 
 
 @Configuration
@@ -30,7 +30,13 @@ public class UserConfig {
                     new BCryptPasswordEncoder().encode("hashed_pw")
             );
 
-            repository.saveAll(List.of(leo, alex));
+            if (repository.findByEmail("l.youmbi@irembo.com") == null ) {
+                repository.save(leo);
+            }
+            if (repository.findByEmail("alex@irembo.com") == null) {
+                repository.save(alex);
+            }
+
         };
     }
 }
