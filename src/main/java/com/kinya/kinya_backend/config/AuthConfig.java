@@ -35,7 +35,7 @@ public class AuthConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/user").hasRole(String.valueOf(UserRole.ADMIN))
                         .requestMatchers(HttpMethod.POST, "/api/v1/lesson").hasRole(String.valueOf(UserRole.ADMIN))
-                        .requestMatchers(HttpMethod.GET, "/api/v1/lesson").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/lesson-category/*", "/api/v1/lesson-category").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -1,5 +1,6 @@
 package com.kinya.kinya_backend.user;
 
+import com.kinya.kinya_backend.lessonCategory.entities.Progress;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,6 +44,9 @@ public class User implements UserDetails {
 
     @UpdateTimestamp
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<Progress> progressList;
 
     public User( String name, String email, String password, UserRole role) {
         this.role = role;
