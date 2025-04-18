@@ -33,7 +33,7 @@ public class AuthService {
 //    private AuthConfig authConfig;
 
 //    @Transactional
-    public void signUp(SignUpDto data) throws IllegalStateException {
+    public void signUp(SignUpDto data) throws UserAlreadyExistsException {
         if (repository.findByEmail(data.email()) != null) {
             throw new UserAlreadyExistsException("User with email " + data.email() + " already exists");
         }

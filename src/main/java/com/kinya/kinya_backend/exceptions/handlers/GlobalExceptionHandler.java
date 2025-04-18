@@ -1,5 +1,6 @@
 package com.kinya.kinya_backend.exceptions.handlers;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import com.kinya.kinya_backend.exceptions.ErrorResponse;
 import com.kinya.kinya_backend.exceptions.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,16 @@ public class GlobalExceptionHandler {
                 Instant.now()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.UNAUTHORIZED.value(),
+                ex.getMessage(),
+                Instant.now()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)
