@@ -1,5 +1,6 @@
 package com.kinya.kinya_backend.auth.service;
 
+import com.kinya.kinya_backend.exceptions.UserAlreadyExistsException;
 import com.kinya.kinya_backend.security.TokenProvider;
 import com.kinya.kinya_backend.auth.dtos.SignInDto;
 import com.kinya.kinya_backend.auth.dtos.SignUpDto;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -32,14 +32,10 @@ public class AuthService {
 //    @Autowired
 //    private AuthConfig authConfig;
 
-    public UserDetails loadUserByUsername(String email) {
-        return repository.findByEmail(email);
-    }
-
 //    @Transactional
     public void signUp(SignUpDto data) throws IllegalStateException {
         if (repository.findByEmail(data.email()) != null) {
-            throw new IllegalStateException("Username already exists");
+            throw new UserAlreadyExistsException("User with email " + data.email() + " already exists");
         }
         String encryptedPassword = passwordEncoder.encode(data.password());
         User newUser = data.role().isPresent() ? new User(data.name(), data.email(), encryptedPassword, data.role().get()) : new User(data.name(), data.email(), encryptedPassword);
