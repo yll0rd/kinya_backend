@@ -5,6 +5,7 @@ import com.kinya.kinya_backend.lessonCategory.dto.DetailLessonCategorySummaryDto
 import com.kinya.kinya_backend.lessonCategory.dto.LessonCategorySummaryDTO;
 import com.kinya.kinya_backend.lessonCategory.dto.PhraseDto;
 import com.kinya.kinya_backend.lessonCategory.entities.Progress;
+import com.kinya.kinya_backend.lessonCategory.exception.LessonCategoryNotFoundException;
 import com.kinya.kinya_backend.lessonCategory.repositories.LessonCategoryRepository;
 import com.kinya.kinya_backend.lessonCategory.repositories.PhraseRepository;
 import com.kinya.kinya_backend.lessonCategory.repositories.ProgressRepository;
@@ -35,10 +36,12 @@ public class LessonCategoryService {
         return lessonCategoryRepository.findAllWithCounts("anonymousUser".equals(authentication.getPrincipal()) ? null : ((User)authentication.getPrincipal()).getId());
     }
 
-    public DetailLessonCategorySummaryDto getLessonCategory(String slug) {
+    public DetailLessonCategorySummaryDto getLessonCategory(String slug) throws LessonCategoryNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         DetailLessonCategory detailLessonCategory = lessonCategoryRepository.findBySlug(slug);
+        if (detailLessonCategory == null)
+            throw new LessonCategoryNotFoundException();
 
         List<PhraseDto> phrases = phraseRepository.findAllByLessonId(detailLessonCategory.id());
 

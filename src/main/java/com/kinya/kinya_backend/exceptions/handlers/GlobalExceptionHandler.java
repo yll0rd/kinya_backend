@@ -1,5 +1,6 @@
 package com.kinya.kinya_backend.exceptions.handlers;
 
+import com.kinya.kinya_backend.lessonCategory.exception.LessonCategoryNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import com.kinya.kinya_backend.exceptions.ErrorResponse;
 import com.kinya.kinya_backend.exceptions.UserAlreadyExistsException;
@@ -31,6 +32,16 @@ public class GlobalExceptionHandler {
                 Instant.now()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(LessonCategoryNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(LessonCategoryNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                Instant.now()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
