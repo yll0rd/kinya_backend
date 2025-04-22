@@ -3,7 +3,7 @@ package com.kinya.kinya_backend.exceptions.handlers;
 import com.kinya.kinya_backend.lessonCategory.exception.LessonCategoryNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import com.kinya.kinya_backend.exceptions.ErrorResponse;
-import com.kinya.kinya_backend.exceptions.UserAlreadyExistsException;
+import com.kinya.kinya_backend.auth.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

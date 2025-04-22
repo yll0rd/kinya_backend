@@ -1,6 +1,6 @@
 package com.kinya.kinya_backend.auth.service;
 
-import com.kinya.kinya_backend.exceptions.UserAlreadyExistsException;
+import com.kinya.kinya_backend.auth.exception.UserAlreadyExistsException;
 import com.kinya.kinya_backend.security.TokenProvider;
 import com.kinya.kinya_backend.auth.dtos.SignInDto;
 import com.kinya.kinya_backend.auth.dtos.SignUpDto;
