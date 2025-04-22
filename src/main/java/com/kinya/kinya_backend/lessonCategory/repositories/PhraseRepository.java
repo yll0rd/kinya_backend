@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface PhraseRepository extends JpaRepository<Phrase, UUID> {
 
     @Query("""
-        SELECT new com.kinya.kinya_backend.lessonCategory.dto.PhraseDto(p.id, p.kinyarwanda, p.english, p.audioUrl)
+        SELECT new com.kinya.kinya_backend.lessonCategory.dto.PhraseDto(p.id, p.kinyarwanda, p.english, p.audioUrl, p.isKeyVocabulary)
         FROM Phrase p WHERE p.lessonCategory.id = :lessonId
 """)
     List<PhraseDto> findAllByLessonId(UUID lessonId);
