@@ -5,3 +5,4 @@ public class LessonCategoryNotFoundException extends RuntimeException  {
         super("Lesson Category Not Found");
     }
 }
+    
