@@ -1,11 +1,11 @@
 package com.kinya.kinya_backend.lessonCategory.service;
 
+import com.kinya.kinya_backend.exceptions.NotFoundException;
 import com.kinya.kinya_backend.lessonCategory.dto.DetailLessonCategory;
 import com.kinya.kinya_backend.lessonCategory.dto.DetailLessonCategorySummaryDto;
 import com.kinya.kinya_backend.lessonCategory.dto.LessonCategorySummaryDTO;
 import com.kinya.kinya_backend.lessonCategory.dto.PhraseDto;
 import com.kinya.kinya_backend.lessonCategory.entities.Progress;
-import com.kinya.kinya_backend.lessonCategory.exception.LessonCategoryNotFoundException;
 import com.kinya.kinya_backend.lessonCategory.repositories.LessonCategoryRepository;
 import com.kinya.kinya_backend.lessonCategory.repositories.PhraseRepository;
 import com.kinya.kinya_backend.lessonCategory.repositories.ProgressRepository;
@@ -36,12 +36,12 @@ public class LessonCategoryService {
         return lessonCategoryRepository.findAllWithCounts("anonymousUser".equals(authentication.getPrincipal()) ? null : ((User)authentication.getPrincipal()).getId());
     }
 
-    public DetailLessonCategorySummaryDto getLessonCategory(String slug) throws LessonCategoryNotFoundException {
+    public DetailLessonCategorySummaryDto getLessonCategory(String slug) throws NotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         DetailLessonCategory detailLessonCategory = lessonCategoryRepository.findBySlug(slug);
         if (detailLessonCategory == null)
-            throw new LessonCategoryNotFoundException();
+            throw new NotFoundException("Lesson Category");
 
         List<PhraseDto> phrases = phraseRepository.findAllByLessonId(detailLessonCategory.id());
 
