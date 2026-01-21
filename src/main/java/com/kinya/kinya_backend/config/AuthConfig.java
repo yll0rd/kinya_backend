@@ -44,6 +44,7 @@ public class AuthConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/health").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/lesson").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/lesson-category").permitAll()

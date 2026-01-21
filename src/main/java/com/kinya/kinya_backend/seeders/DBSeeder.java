@@ -104,32 +104,21 @@ public class DBSeeder {
     @Bean
     CommandLineRunner UserSeeder(UserRepository repository) {
         return args -> {
-            User leo = new User(
-                    "Leo",
-                    "l.youmbi@irembo.com",
-                    new BCryptPasswordEncoder().encode("hashed_pw"),
-                    UserRole.ROLE_ADMIN
-            );
+//            if (repository.count() > 0) return; // Avoid reseeding
 
-            repository.save(new User(
-                    "yll0rd",
+            repository.upsertByEmail(new User(
+                    "yll0rd-admin",
                     "leoyoumbi83@gmail.com",
                     new BCryptPasswordEncoder().encode("hashed_pw"),
                     UserRole.ROLE_ADMIN
             ));
 
-            User alex = new User(
+            repository.upsertByEmail(new User(
                     "alex",
                     "alex@irembo.com",
-                    new BCryptPasswordEncoder().encode("hashed_pw")
-            );
-
-            if (repository.findByEmail(leo.getEmail()).isEmpty()) {
-                repository.save(leo);
-            }
-            if (repository.findByEmail(alex.getEmail()).isEmpty()) {
-                repository.save(alex);
-            }
+                    new BCryptPasswordEncoder().encode("hashed_pw"),
+                    UserRole.ROLE_USER
+            ));
 
         };
     }
