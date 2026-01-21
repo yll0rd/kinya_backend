@@ -34,26 +34,24 @@ public class AuthService {
 
 //    @Transactional
     public void signUp(SignUpDto data) throws UserAlreadyExistsException {
-        if (repository.findByEmail(data.email()) != null) {
+        String email = data.email().toLowerCase();
+        if (repository.findByEmail(email).isPresent()) {
             throw new UserAlreadyExistsException("User with email " + data.email() + " already exists");
         }
         String encryptedPassword = passwordEncoder.encode(data.password());
-        User newUser = data.role().isPresent() ? new User(data.name(), data.email(), encryptedPassword, data.role().get()) : new User(data.name(), data.email(), encryptedPassword);
+        User newUser = data.role().isPresent() ? new User(data.name(), email, encryptedPassword, data.role().get()) : new User(data.name(), data.email(), encryptedPassword);
         repository.save(newUser);
     }
 
     public String login(SignInDto input) {
-
-        System.out.println(input);
-
         Authentication authUser = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.email(),
+                        input.email().toLowerCase(),
                         input.password()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authUser);
-        System.out.println(authUser);
+//        System.out.println(authUser);
 
         return tokenService.generateAccessToken((User) authUser.getPrincipal());
 

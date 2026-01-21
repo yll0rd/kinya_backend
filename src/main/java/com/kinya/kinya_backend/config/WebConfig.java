@@ -13,6 +13,9 @@ public class WebConfig {
     @Value("${frontend.url}")
     private String CORS_ORIGIN;
 
+    @Value("${api.url}")
+    private String API_URL;
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -20,7 +23,7 @@ public class WebConfig {
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 System.out.println("Cors configured");
                 registry.addMapping("/**")
-                        .allowedOrigins(CORS_ORIGIN) // Angular server
+                        .allowedOrigins(CORS_ORIGIN, API_URL) // Angular server
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
             }
