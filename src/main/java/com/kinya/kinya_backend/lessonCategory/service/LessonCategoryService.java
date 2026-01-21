@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LessonCategoryService {
@@ -33,7 +34,8 @@ public class LessonCategoryService {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return lessonCategoryRepository.findAllWithCounts("anonymousUser".equals(authentication.getPrincipal()) ? null : ((User)authentication.getPrincipal()).getId());
+        UUID userId = authentication == null ? null : ((User)authentication.getPrincipal()).getId();
+        return lessonCategoryRepository.findAllWithCounts(userId);
     }
 
     public DetailLessonCategorySummaryDto getLessonCategory(String slug) throws NotFoundException {

@@ -25,7 +25,7 @@ public class LessonCategoryController {
     }
 
     @GetMapping(path = "{slug}")
-    public ResponseEntity<DetailLessonCategorySummaryDto> getLessonCategory(@PathVariable("slug") String slug) {
+    public ResponseEntity<DetailLessonCategorySummaryDto> getLessonCategory(@PathVariable String slug) {
         return ResponseEntity.ok(this.lessonCategoryService.getLessonCategory(slug));
     }
 }

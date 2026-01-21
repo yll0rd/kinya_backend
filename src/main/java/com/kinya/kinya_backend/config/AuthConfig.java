@@ -1,7 +1,7 @@
 package com.kinya.kinya_backend.config;
 
 import com.kinya.kinya_backend.security.SecurityFilter;
-import com.kinya.kinya_backend.user.UserRole;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,14 +30,28 @@ public class AuthConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
+                .exceptionHandling(exceptions -> exceptions
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.getWriter().write("{\"error\":\"Access Denied\",\"message\":\"You don't have permission to access this resource\"}");
+                            response.setContentType("application/json");
+                        })
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.getWriter().write("{\"error\":\"Unauthorized\",\"message\":\"Authentication required\"}");
+                            response.setContentType("application/json");
+                        })
+                )
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/user").hasRole(String.valueOf(UserRole.ADMIN))
-                        .requestMatchers(HttpMethod.POST, "/api/v1/lesson").hasRole(String.valueOf(UserRole.ADMIN))
+                        .requestMatchers(HttpMethod.GET, "/api/v1/user").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/lesson").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/lesson-category").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .anonymous(AbstractHttpConfigurer::disable)
                 .build();
     }
 

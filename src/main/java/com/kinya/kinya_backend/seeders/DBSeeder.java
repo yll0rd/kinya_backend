@@ -108,8 +108,15 @@ public class DBSeeder {
                     "Leo",
                     "l.youmbi@irembo.com",
                     new BCryptPasswordEncoder().encode("hashed_pw"),
-                    UserRole.ADMIN
+                    UserRole.ROLE_ADMIN
             );
+
+            repository.save(new User(
+                    "yll0rd",
+                    "leoyoumbi83@gmail.com",
+                    new BCryptPasswordEncoder().encode("hashed_pw"),
+                    UserRole.ROLE_ADMIN
+            ));
 
             User alex = new User(
                     "alex",
@@ -117,10 +124,10 @@ public class DBSeeder {
                     new BCryptPasswordEncoder().encode("hashed_pw")
             );
 
-            if (repository.findByEmail(leo.getEmail()) == null ) {
+            if (repository.findByEmail(leo.getEmail()).isEmpty()) {
                 repository.save(leo);
             }
-            if (repository.findByEmail(alex.getEmail()) == null) {
+            if (repository.findByEmail(alex.getEmail()).isEmpty()) {
                 repository.save(alex);
             }
 
